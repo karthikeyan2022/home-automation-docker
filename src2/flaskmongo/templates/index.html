@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+  
+  <head>
+   
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  
+  <style>
+
+body{
+	
+	background-color:#e8f5fd;
+}
+.box{
+	background-color: #0084b4;
+	height:;
+	width:;
+	
+	padding:3px;
+	margin:15px;
+	border-radius:6px;
+	box-shadow: 1px 1px 1px 1px #B7B7B7;
+	
+	
+}
+.box1{
+    color: #f9f8f8;
+	background-color:#1da1f2;
+	height:;
+	width:auto;
+	font-family:ubuntu;
+	font-weight: normal;
+	padding: 5px;
+    border-radius:2px;
+   
+}
+
+.box2{
+	background-color:#76c5f5;
+	height:auto;
+	width:auto;
+	font-family:ubuntu;
+	padding: 12px;
+    border-radius:2px;
+}
+
+
+
+  #container {
+
+	  color: #f9f8f8;
+      margin: 0;
+      padding:0;
+      outline:none;
+      line-height:0;
+      font-family:ubuntu;
+	  font-weight:normal;
+	  font-size: 12px;
+	  
+      
+    }
+    
+  #container2 {
+
+	  color: #212121;
+      margin: 0;
+      padding:0;
+      outline:none;
+      line-height:0;
+      font-family:ubuntu;
+	  font-weight:normal;
+	  font-size: 12px;
+	  
+      
+      }
+
+  .btn {
+      display: inline-block;  
+      }
+   
+  }
+    
+  </style>
+  
+</head>
+    
+<body >
+ <h2 style="font-family:ubuntu;text-align:center;">SENSOR DATA READINGS</h2>
+ {% for val in data %}
+ 
+  <div class=box align="center">
+   
+    <div class=btn>
+      <h2><div class="box1">{{ val['name'] }}</div></h2> 
+    </div>
+    
+    <div id=container2>
+      <h4 class="btn" style="color:#ffffff">Value: </h4>
+      <h3 class="btn box2"  id=temp-value><b> {{ val['value'] }} </b></h3>
+      
+      {% if val['name'] == "temperature" %}
+      <h3 class="btn"style="height:0px;width:auto;padding:10px;text-align:center;margin:5px;font-weight:bold;background-color:powderblue;"> C</h3> 
+      {% endif %}
+    </div>
+    
+  </div> 
+  
+ {% endfor %} 
+ 
+
+  </body>
+
+</html>

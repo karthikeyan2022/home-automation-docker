@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+  
+  <head>
+   
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+
+  <script src="mqttws31.js" type="text/javascript"></script>
+  <script type="text/javascript">
+
+    var wsbroker = "192.168.43.125";  //mqtt websocket enabled broker
+    var wsport = 9001 // port for above
+
+    
+    var client2 = new Paho.MQTT.Client(wsbroker, wsport,"2-moisture"+ parseInt(Math.random() * 100, 10));
+    
+
+   
+    client2.onConnectionLost = function (responseObject) {
+      console.log("mqtt connection lost: " + responseObject.errorMessage);
+
+      document.getElementById("moisture-status").innerHTML = "CONNECTION LOST";
+      document.getElementById("moisture-value").innerHTML = "CANNOT READ VALUE";
+    };
+    
+   
+
+   
+    
+     client2.onMessageArrived = function (message) {  
+      document.getElementById("moisture-value").innerHTML = message.payloadString;
+    //  document.getElementById("p1").innerHTML = "New text!" + message.payloadString;
+      console.log(message.destinationName, ' -- ', message.payloadString);
+    };
+    
+   
+
+   
+    
+    var options2 = {
+      timeout: 3,
+      onSuccess: function () {
+        console.log("mqtt connected");
+
+        document.getElementById("moisture-status").innerHTML = "CONNECTION SUCCESS";
+        // Connection succeeded; subscribe to our topic, you can add multile lines of these
+        client2.subscribe('/moisture', {qos: 1});
+          
+        //use the below if you want to publish to a topic on connect
+       // message = new Paho.MQTT.Message("Hello");
+       // message.destinationName = "/house";
+       // client.send(message);
+  
+      },
+      onFailure: function (message) {
+        console.log("Connection failed: " + message.errorMessage);
+        document.getElementById("moisture-status").innerHTML = "CONNECTION FAILURE";
+        document.getElementById("moisture-value").innerHTML = "CANNOT READ VALUE";
+      }
+    };
+    
+  function init() {
+      
+      client2.connect(options2);
+     
+  }
+
+  </script>
+  
+  <style>
+
+body{
+	
+	background-color:#e8f5fd;
+}
+.box{
+	background-color: #0084b4;
+	height:;
+	width:;
+	
+	padding:3px;
+	margin:15px;
+	border-radius:6px;
+	box-shadow: 1px 1px 1px 1px #B7B7B7;
+	
+	
+}
+.box1{
+    color: #f9f8f8;
+	background-color:#1da1f2;
+	height:;
+	width:auto;
+	font-family:ubuntu;
+	font-weight: normal;
+	padding: 5px;
+    border-radius:2px;
+   
+}
+
+.box2{
+	background-color:#76c5f5;
+	height:auto;
+	width:auto;
+	font-family:ubuntu;
+	padding: 12px;
+    border-radius:2px;
+}
+
+
+
+  #container {
+
+	  color: #f9f8f8;
+      margin: 0;
+      padding:0;
+      outline:none;
+      line-height:0;
+      font-family:ubuntu;
+	  font-weight:normal;
+	  font-size: 12px;
+	  
+      
+    }
+    
+  #container2 {
+
+	  color: #212121;
+      margin: 0;
+      padding:0;
+      outline:none;
+      line-height:0;
+      font-family:ubuntu;
+	  font-weight:normal;
+	  font-size: 12px;
+	  
+      
+      }
+
+  .btn {
+      display: inline-block;  
+      }
+   
+  }
+    
+  </style>
+  
+  </head>
+    
+  <body onload="init();" >
+
+  <style>
+    #container {
+      margin: 0 auto;
+    }
+
+    .btn {
+      display: inline-block;  
+    }
+  </style>
+  
+   <h2 style="font-family:ubuntu;text-align:center;">SENSOR DATA READINGS</h2>
+ 
+  
+  
+  <div class=box align="center">
+    <div id=container >
+      <h4 class="btn">MQTT Connection status: </h4>
+      <h3 class="btn"  id=moisture-status>CONNECTION NOT ESTABLISHED</h3>
+    </div>
+    <div class=btn>
+      <h2><div class="box1">MOISTURE</div></h2> 
+    </div>
+    
+    <div id=container2>
+      <h4 class="btn" style="color:#ffffff">Value: </h4>
+      <h3 class="btn box2"  id=moisture-value><b>SERVICE NOT RUNNING</b></h3>
+    </div>
+    
+  </div> 
+ 
+
+  </body>
+
+</html>
+
