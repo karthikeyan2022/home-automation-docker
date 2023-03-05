@@ -22,22 +22,27 @@ MQTT_CLIENT_ID = 'ldr-'
 if __name__ == '__main__':
     try:
         while True:
+
             value="Light OFF"
+
+            # 1. check and update value from ldr-sensor sense pin
             if GPIO.input(sense):
-                print "Light ON"
+                print('Light ON')
                 value = "Light ON"
             else:
-                print "Light OFF"
-		value = "Light OFF"
+                print('Light OFF')
+                value = "Light OFF"
+
             #time.sleep(0.5)
+            # 2. publish the value to mqtt server
             if GPIO.input(connect) == False:
-              print "publishing"
-              publish.single(MQTT_PATH, value, hostname=MQTT_SERVER)
+                print('publishing...')
+                publish.single(MQTT_PATH, value, hostname=MQTT_SERVER)
             else:
-              value="device unplugged"
-              publish.single(MQTT_PATH,value, hostname=MQTT_SERVER)
+                value="device unplugged"
+                publish.single(MQTT_PATH, value, hostname=MQTT_SERVER)
 
     # Reset by pressing CTRL + C
     except KeyboardInterrupt:
-        print("Measurement stopped by User")
+        print('Measurement stopped by User')
         GPIO.cleanup()

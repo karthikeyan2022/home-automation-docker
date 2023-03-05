@@ -18,23 +18,24 @@ MQTT_PATH = '/moisture'
 MQTT_CLIENT_ID = 'moisture'
 
 
-
 if __name__ == '__main__':
     try:
         while True:
             value="Water not detected"
             if GPIO.input(sense):
-                print "No Water Detected!"
+                print('No Water Detected!')
                 value = "Water not detected"
             else:
-                print "Water Detected!"
-		value = "Water detected"
+                print('Water Detected!')
+                value = "Water detected"
+
             time.sleep(0.5)
+
             if GPIO.input(connect) == False:
               publish.single(MQTT_PATH, value, hostname=MQTT_SERVER)
             else:
               value="device unplugged"
-              publish.single(MQTT_PATH,value, hostname=MQTT_SERVER)
+              publish.single(MQTT_PATH, value, hostname=MQTT_SERVER)
 
    
     # Reset by pressing CTRL + C
