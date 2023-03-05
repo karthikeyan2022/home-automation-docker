@@ -46,7 +46,7 @@ METHOD 1: Docker compose
 
 METHOD 2: Running the Docker containers seperately
 
-  1. Download the docker images mbixtech/arm32v7-mosquitto and tobi312/rpi-nginx (Refer DOCKER COMMANDS)
+  1. Download the docker images mbixtech/arm32v7-mosquitto and arm32v7/nginx (removed-tobi312/rpi-nginx) (Refer DOCKER COMMANDS)
   2. Refer DOCKER COMMANDS for building and running docker containers
   3. Run the following commands:
 
@@ -62,7 +62,7 @@ METHOD 2: Running the Docker containers seperately
 
 (modify the index.html file located at /home/pi/html changing the mqtt server address)
 (Refer to the directory /home/pi/.config/nginx and /home/pi/html )
-"sudo docker run -d -p 80:80 -v /home/pi/.config/nginx:/etc/nginx/conf.d:ro -v /home/pi/html:/var/www/html tobi312/rpi-nginx"
+"sudo docker run -d -p 80:80 -v /home/pi/.config/nginx:/etc/nginx/conf.d:ro -v /home/pi/html:/var/www/html arm32v7/nginx"
 
 ## DOCKER COMMANDS
 

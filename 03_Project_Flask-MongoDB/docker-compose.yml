@@ -1,0 +1,25 @@
+version: '3' 
+
+services:
+    flaskmongo:
+        image: flaskmongo
+        ports:
+            - 5000:5000      
+ 
+    mongoclient1:
+        depends_on:
+            - flaskmongo
+        image: mongoclient1
+        privileged: true
+        
+    mongoclient2:
+        depends_on:
+            - flaskmongo
+        image: mongoclient2
+        privileged: true
+
+    mongoclient3:
+        depends_on:
+            - flaskmongo
+        image: mongoclient3
+        privileged: true

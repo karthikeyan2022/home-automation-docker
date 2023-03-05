@@ -1,0 +1,36 @@
+version: '3' 
+
+services:
+    reverseproxy:
+        image: reverseproxy
+        ports:
+            - 8080:8080
+            - 8081:8081
+            - 8082:8082
+
+    nginx1:
+        depends_on:
+            - reverseproxy
+        image: arm32v7/nginx
+        volumes:
+            - /home/pi/.config/nginx:/etc/nginx/conf.d:ro
+            - /home/pi/html1:/var/www/html
+        
+    nginx2:
+        depends_on:
+            - reverseproxy
+        image: arm32v7/nginx
+        volumes:
+            - /home/pi/.config/nginx:/etc/nginx/conf.d:ro
+            - /home/pi/html2:/var/www/html
+       
+        
+    nginx3:
+        depends_on:
+            - reverseproxy
+        image: arm32v7/nginx
+        volumes:
+            - /home/pi/.config/nginx:/etc/nginx/conf.d:ro
+            - /home/pi/html3:/var/www/html
+  
+

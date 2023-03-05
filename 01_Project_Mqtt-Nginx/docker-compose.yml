@@ -1,0 +1,41 @@
+version: '3' 
+
+services:
+    mosquitto:
+        image: mbixtech/arm32v7-mosquitto
+        ports:
+            - 1883:1883
+            - 9001:9001
+        volumes:
+            - /home/pi/.config/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+       
+    temperature:
+        depends_on:
+            - mosquitto
+        image: temperature-service
+        privileged: true
+        network_mode: "host"
+               
+    moisture:
+        depends_on:
+            - mosquitto
+        image: moisture-service
+        privileged: true
+        network_mode: "host"
+    ldr:
+        depends_on:
+            - mosquitto
+        image: ldr-service
+        privileged: true
+        network_mode: "host"
+ 
+    nginx:
+        depends_on:
+            - mosquitto
+        image: arm32v7/nginx
+        ports:
+            - 80:80
+        volumes:
+            - /home/pi/.config/nginx:/etc/nginx/conf.d:ro
+            - /home/pi/html:/var/www/html
+       
