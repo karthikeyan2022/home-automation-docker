@@ -23,42 +23,42 @@ The main motto of this project is if someone update the code for one sensor or i
 
 METHOD 1: Docker compose
 
-  1. Go to the Desktop directory "cd Desktop"
-  2. Run the command "sudo docker-compose up -d"  
+ 1. Go to the Desktop directory "cd Desktop"
+ 2. Run the command "sudo docker-compose up -d"  
 (refer docker-compose.yml file in that directory which starts the docker containers)
 
 METHOD 2: Running the Docker containers separately
 
-  1. Refer DOCKER COMMANDS for building and running docker containers
-  2. Run the following commands:
+ 1. Refer DOCKER COMMANDS for building and running docker containers
+ 2. Run the following commands:
 `sudo docker run -d -p 5000:5000 flaskmongo`\
 `sudo docker run --privileged -d mongoclient1`\
 `sudo docker run --privileged -d mongoclient2`\
-`sudo docker run --privileged -d mongoclient3`\
+`sudo docker run --privileged -d mongoclient3`
 
 ## Running the docker project (MQTT-NGINX)
 
 METHOD 1: Docker compose
 
-  1. Go to the directory that contains corresponding docker-compose.yml (/home/pi/Documents/dockercompose_files/mqttserver)
-  2. Run the command "sudo docker-compose up -d"
+ 1. Go to the directory that contains corresponding docker-compose.yml (/home/pi/Documents/dockercompose_files/mqttserver)
+ 2. Run the command "sudo docker-compose up -d"
 (refer docker-compose.yml file in that directory which starts the docker containers)
 
 METHOD 2: Running the Docker containers seperately
 
-  1. Download the docker images mbixtech/arm32v7-mosquitto and arm32v7/nginx (removed-tobi312/rpi-nginx) (Refer DOCKER COMMANDS)
-  2. Refer DOCKER COMMANDS for building and running docker containers
-  3. Run the following commands:
+ 1. Download the docker images mbixtech/arm32v7-mosquitto and arm32v7/nginx (removed-tobi312/rpi-nginx) (Refer DOCKER COMMANDS)
+ 2. Refer DOCKER COMMANDS for building and running docker containers
+ 3. Run the following commands:
 
   (Refer to the directory /home/pi/.config/mosquitto/mosquitto.conf)
-  `sudo docker run -d -p 1883:1883 -p 9001:9001 -v /home/pi/.config/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf mbixtech/arm32v7-mosquitto`\
+`sudo docker run -d -p 1883:1883 -p 9001:9001 -v /home/pi/.config/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf mbixtech/arm32v7-mosquitto`
 
-  (Ensure SPI is enabled. Enable it by running "sudo raspi-config")
-"sudo docker run --network="host" --privileged -d temperature-service"
+(Ensure SPI is enabled. Enable it by running "sudo raspi-config")
+`sudo docker run --network="host" --privileged -d temperature-service`
 
-"sudo docker run --network="host" --privileged -d moisture-service"
+`sudo docker run --network="host" --privileged -d moisture-service`
 
-"sudo docker run --network="host" --privileged -d ldr-service"
+`sudo docker run --network="host" --privileged -d ldr-service`
 
 (modify the index.html file located at /home/pi/html changing the mqtt server address)
 (Refer to the directory /home/pi/.config/nginx and /home/pi/html )
@@ -73,41 +73,46 @@ The required app.py file is included in the directory.
 requirements.txt file contains the names of dependencies to be downloaded ( to be refered in Dockerfile )
 Run the following command for building the image ( ensure '.' character is included)
 `sudo docker build -t container-name .`\
-For Example: `sudo docker build -t temperature-service .`\
+For Example: `sudo docker build -t temperature-service .`
 
  2. Command for checking the running containers
-`sudo docker container ls`\
+
+`sudo docker container ls`
 
  3. Command for stopping the running containers
-`sudo docker container stop $(sudo docker container ls -q)`\
+
+`sudo docker container stop $(sudo docker container ls -q)`
 
  4. Command for downloading a docker image
-`sudo docker pull image-name`\
+
+`sudo docker pull image-name`
 
 ## REFERENCES
 
-  <https://www.instructables.com/id/Measuring-Temperature-With-I2C-Sensor-LM75A-on-Ras/>
-  <https://www.instructables.com/id/Soil-Moisture-Sensor-Raspberry-Pi/>
-  <https://programminghistorian.org/en/lessons/creating-apis-with-python-and-flask>
-  <https://linuxize.com/post/how-to-remove-docker-images-containers-volumes-and-networks/>
-  <https://hub.docker.com/r/mbixtech/arm32v7-mosquitto/>
-  <http://nilhcem.com/iot/home-monitoring-with-mqtt-influxdb-grafana>
-  <https://www.berthon.eu/2019/revisiting-getting-docker-compose-on-raspberry-pi-arm-the-easy-way/>
-  <https://www.eclipse.org/paho/clients/js/>
+- <https://www.instructables.com/id/Measuring-Temperature-With-I2C-Sensor-LM75A-on-Ras/>
+- <https://www.instructables.com/id/Soil-Moisture-Sensor-Raspberry-Pi/>
+- <https://programminghistorian.org/en/lessons/creating-apis-with-python-and-flask>
+- <https://linuxize.com/post/how-to-remove-docker-images-containers-volumes-and-networks/>
+- <https://hub.docker.com/r/mbixtech/arm32v7-mosquitto/>
+- <http://nilhcem.com/iot/home-monitoring-with-mqtt-influxdb-grafana>
+- <https://www.berthon.eu/2019/revisiting-getting-docker-compose-on-raspberry-pi-arm-the-easy-way/>
+- <https://www.eclipse.org/paho/clients/js/>
 
 ## Prerequisite
 
 Installing docker
 
-1. Update and install docker
-`sudo apt-get update && sudo apt-get upgrade` \
-`curl -fsSL https://get.docker.com -o get-docker.sh` \
-`sudo sh get-docker.sh`
+```sh
+# 1. Update and install docker
+$ sudo apt-get update && sudo apt-get upgrade
+$ curl -fsSL https://get.docker.com -o get-docker.sh
+$ sudo sh get-docker.sh
 
-2. Add docker to group and refresh (log out or reboot)
-`sudo usermod -aG docker pi`
+# 2. Add docker to group and refresh (log out or reboot)
+$ sudo usermod -aG docker pi
 
-3. Verify the installation
-`docker run hello-world`
+# 3. Verify the installation
+$docker run hello-world
+```
 
- <https://www.simplilearn.com/tutorials/docker-tutorial/raspberry-pi-docker>
+Reference: <https://www.simplilearn.com/tutorials/docker-tutorial/raspberry-pi-docker>
