@@ -40,7 +40,7 @@ METHOD 2: Running the Docker containers separately
 
 METHOD 1: Docker compose
 
-  1. Go to the directory that contains corresponding docker-compose.yml ( in /home/pi/Documents/dockercompose_files/mqttserver
+  1. Go to the directory that contains corresponding docker-compose.yml (/home/pi/Documents/dockercompose_files/mqttserver)
   2. Run the command "sudo docker-compose up -d"
 (refer docker-compose.yml file in that directory which starts the docker containers)
 
@@ -94,3 +94,20 @@ For Example: `sudo docker build -t temperature-service .`\
   <http://nilhcem.com/iot/home-monitoring-with-mqtt-influxdb-grafana>
   <https://www.berthon.eu/2019/revisiting-getting-docker-compose-on-raspberry-pi-arm-the-easy-way/>
   <https://www.eclipse.org/paho/clients/js/>
+
+## Prerequisite
+
+Installing docker
+
+1. Update and install docker
+`sudo apt-get update && sudo apt-get upgrade` \
+`curl -fsSL https://get.docker.com -o get-docker.sh` \
+`sudo sh get-docker.sh`
+
+2. Add docker to group and refresh (log out or reboot)
+`sudo usermod -aG docker pi`
+
+3. Verify the installation
+`docker run hello-world`
+
+ <https://www.simplilearn.com/tutorials/docker-tutorial/raspberry-pi-docker>
